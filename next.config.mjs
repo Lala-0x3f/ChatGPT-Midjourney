@@ -29,6 +29,13 @@ const nextConfig = {
   output: mode,
   images: {
     unoptimized: mode === "export",
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**',
+        port: '',
+        pathname: '/**',
+      },]
   },
   experimental: {
     forceSwcTransforms: true,

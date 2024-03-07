@@ -9,8 +9,8 @@ import ChatGptIcon from "../icons/chatgpt.svg";
 import AddIcon from "../icons/add.svg";
 import CloseIcon from "../icons/close.svg";
 import MaskIcon from "../icons/mask.svg";
-import GemIcon from "../icons/gem.svg";
 import DragIcon from "../icons/drag.svg";
+import DocIcon from "../icons/book-marked.svg";
 
 import Locale from "../locales";
 
@@ -28,6 +28,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useMobileScreen } from "../utils";
 import dynamic from "next/dynamic";
 import { showConfirm, showToast } from "./ui-lib";
+import { useRouter } from "next/navigation";
 
 const ChatList = dynamic(async () => (await import("./chat-list")).ChatList, {
   loading: () => null,
@@ -109,7 +110,7 @@ export function SideBar(props: { className?: string }) {
   const config = useAppConfig();
 
   useHotKey();
-
+  const r = useRouter();
   return (
     <div
       className={`${styles.sidebar} ${props.className} ${
@@ -118,7 +119,7 @@ export function SideBar(props: { className?: string }) {
     >
       <div className={styles["sidebar-header"]} data-tauri-drag-region>
         <div className={styles["sidebar-title"]} data-tauri-drag-region>
-          ChatGPT-Midjourney
+          ChatGPT+Midjourney
         </div>
         <div className={styles["sidebar-sub-title"]}>
           Your own AI assistant.
@@ -137,10 +138,10 @@ export function SideBar(props: { className?: string }) {
           shadow
         />
         <IconButton
-          icon={<GemIcon />}
-          text={shouldNarrow ? undefined : "Pro"}
+          icon={<DocIcon />}
+          text={shouldNarrow ? undefined : "指南"}
           className={styles["sidebar-bar-button"]}
-          onClick={() => window.open(REPO_URL + "-Pro", "_blank")}
+          onClick={() => r.push('document')}
           shadow
         />
       </div>
