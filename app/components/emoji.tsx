@@ -8,6 +8,7 @@ import { ModelType } from "../store";
 
 import BotIcon from "../icons/bot.svg";
 import BlackBotIcon from "../icons/black-bot.svg";
+import Gemini from "../icons/gemini.svg"
 
 export function getEmojiUrl(unified: string, style: EmojiStyle) {
   return `https://fastly.jsdelivr.net/npm/emoji-datasource-apple/img/${style}/64/${unified}.png`;
@@ -34,6 +35,8 @@ export function Avatar(props: { model?: ModelType; avatar?: string }) {
       <div className="no-dark">
         {props.model?.startsWith("gpt-4") ? (
           <BlackBotIcon className="user-avatar" />
+        ) : props.model?.startsWith("gemini") ? (
+          <Gemini className="user-avatar" />
         ) : (
           <BotIcon className="user-avatar" />
         )}
