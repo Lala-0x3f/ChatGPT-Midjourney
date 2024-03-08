@@ -13,6 +13,8 @@ declare global {
       BUILD_MODE?: "standalone" | "export";
       BUILD_APP?: string; // is building desktop app
       HIDE_BALANCE_QUERY?: string; // allow user to query balance or not
+      googleUrl?:string,
+      googleApiKey?:string,
     }
   }
 }
@@ -49,5 +51,7 @@ export const getServerSideConfig = () => {
     disableGPT4: !!process.env.DISABLE_GPT4,
     hideBalanceQuery: !!process.env.HIDE_BALANCE_QUERY,
     enableGPT4: !process.env.DISABLE_GPT4,
+    googleUrl: process.env.GOOGLE_URL,
+    googleApiKey: process.env.GOOGLE_API_KEY,
   };
 };

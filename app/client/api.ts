@@ -1,7 +1,10 @@
 import { getClientConfig } from "../config/client";
-import { ACCESS_CODE_PREFIX } from "../constant";
-import {ChatMessage, ModelType, useAccessStore, useAppConfig} from "../store";
+import { ACCESS_CODE_PREFIX ,ModelProvider} from "../constant";
+import { ChatMessage, ModelType, useAccessStore, useAppConfig } from "../store";
 import { ChatGPTApi } from "./platforms/openai";
+
+import { GeminiProApi } from "./platforms/google";
+
 
 export const ROLES = ["system", "user", "assistant"] as const;
 export type MessageRole = (typeof ROLES)[number];
@@ -9,9 +12,17 @@ export type MessageRole = (typeof ROLES)[number];
 export const Models = ["gpt-3.5-turbo", "gpt-4"] as const;
 export type ChatModel = ModelType;
 
+export interface MultimodalContent {
+  type: "text" | "image_url";
+  text?: string;
+  image_url?: {
+    url: string;
+  };
+}
+
 export interface RequestMessage {
   role: MessageRole;
-  content: string;
+  content: string | MultimodalContent[];
 }
 
 export interface LLMConfig {
@@ -73,7 +84,11 @@ interface ChatProvider {
 export class ClientApi {
   public llm: LLMApi;
 
-  constructor() {
+  constructor(provider: ModelProvider = ModelProvider.GPT) {
+    if (provider === ModelProvider.GeminiPro) {
+      this.llm = new GeminiProApi();
+      return;
+    }
     this.llm = new ChatGPTApi();
   }
 
@@ -93,7 +108,7 @@ export class ClientApi {
         {
           from: "human",
           value:
-            "Share from [ChatGPT Next Web]: https://github.com/Yidadaa/ChatGPT-Next-Web",
+            "Share from [NextChat]: https://github.com/Yidadaa/ChatGPT-Next-Web",
         },
       ]);
     // 敬告二开开发者们，为了开源大模型的发展，请不要修改上述消息，此消息用于后续数据清洗使用

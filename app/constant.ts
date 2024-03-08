@@ -9,6 +9,21 @@ export const FETCH_TAG_URL = `https://api.github.com/repos/${OWNER}/${REPO}/tags
 export const RUNTIME_CONFIG_DOM = "danger-runtime-config";
 export const DEFAULT_API_HOST = "https://chatgpt1.nextweb.fun/api/proxy";
 
+export const GEMINI_BASE_URL = "https://generativelanguage.googleapis.com/";
+
+export const Google = {
+  ExampleEndpoint: "https://generativelanguage.googleapis.com/",
+  ChatPath: "v1beta/models/gemini-pro:generateContent",
+  VisionChatPath: "v1beta/models/gemini-pro-vision:generateContent",
+
+  // /api/openai/v1/chat/completions
+};
+
+export enum ModelProvider {
+  GPT = "GPT",
+  GeminiPro = "GeminiPro",
+}
+
 export enum Path {
   Home = "/",
   Chat = "/chat",
@@ -58,12 +73,20 @@ export const OpenaiPath = {
 
 export const DEFAULT_INPUT_TEMPLATE = `{{input}}`; // input / time / model / lang
 export const DEFAULT_SYSTEM_TEMPLATE = `
-You are ChatGPT, a large language model trained by OpenAI.
-Knowledge cutoff: 2021-09
+你是个乐于助人的助手,你可以回答我的问题来帮助我,也可以问我一些问题。喜欢 emoij 
 Current model: {{model}}
 Current time: {{time}}`;
 
 export const DEFAULT_MODELS = [
+  {
+    name: "gemini-pro",
+    available: true,
+    provider: {
+      id: "google",
+      providerName: "Google",
+      providerType: "google",
+    },
+  },
   {
     name: "gpt-4",
     available: true,
@@ -92,10 +115,10 @@ export const DEFAULT_MODELS = [
     name: "gpt-3.5-turbo-1106",
     available: true,
   },
-  {
-    name: "midjourney",
-    available: true,
-  },
+  // {
+  //   name: "midjourney",
+  //   available: true,
+  // },
 ] as const;
 
 export const CHAT_PAGE_SIZE = 15;

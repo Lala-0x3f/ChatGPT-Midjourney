@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { FETCH_COMMIT_URL, FETCH_TAG_URL, StoreKey } from "../constant";
-import { api } from "../client/api";
+import { FETCH_COMMIT_URL, FETCH_TAG_URL, ModelProvider, StoreKey } from "../constant";
+import { ClientApi } from "../client/api";
 import { getClientConfig } from "../config/client";
 
 export interface UpdateStore {
@@ -108,6 +108,7 @@ export const useUpdateStore = create<UpdateStore>()(
         }));
 
         try {
+          const api = new ClientApi(ModelProvider.GPT);
           const usage = await api.llm.usage();
 
           if (usage) {

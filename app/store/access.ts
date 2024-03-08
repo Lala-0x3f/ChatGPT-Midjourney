@@ -13,6 +13,7 @@ export interface AccessControlStore {
   hideUserApiKey: boolean;
   hideBalanceQuery: boolean;
   disableGPT4: boolean;
+  googleApiKey: string;
 
   openaiUrl: string;
 
@@ -41,6 +42,7 @@ export const useAccessStore = create<AccessControlStore>()(
       hideBalanceQuery: false,
       disableGPT4: false,
       openaiUrl: DEFAULT_OPENAI_URL,
+      googleApiKey: "",
 
       enabledAccessControl() {
         get().fetch();

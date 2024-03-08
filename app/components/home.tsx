@@ -30,6 +30,9 @@ import { getClientConfig } from "../config/client";
 import { api } from "../client/api";
 import { useAccessStore } from "../store";
 
+import { ClientApi } from "../client/api";
+import { ModelProvider } from "../constant";
+
 export function Loading(props: { noLogo?: boolean }) {
   return (
     <div className={styles["loading-content"] + " no-dark"}>
@@ -166,6 +169,13 @@ function Screen() {
 
 export function useLoadData() {
   const config = useAppConfig();
+
+  var api: ClientApi;
+  if (config.modelConfig.model.startsWith("gemini")) {
+    api = new ClientApi(ModelProvider.GeminiPro);
+  } else {
+    api = new ClientApi(ModelProvider.GPT);
+  }
 
   useEffect(() => {
     (async () => {
