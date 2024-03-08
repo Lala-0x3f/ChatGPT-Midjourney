@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-import { trimTopic } from "../utils";
+import { getMessageTextContent, trimTopic } from "../utils";
 
 import Locale, { getLang } from "../locales";
 import { showToast } from "../components/ui-lib";
@@ -118,7 +118,7 @@ interface ChatStore {
 }
 
 function countMessages(msgs: ChatMessage[]) {
-  return msgs.reduce((pre, cur) => pre + estimateTokenLength(cur.content), 0);
+  return msgs.reduce((pre, cur) => pre + estimateTokenLength(getMessageTextContent(cur)), 0);
 }
 
 function fillTemplateWith(input: string, modelConfig: ModelConfig) {
@@ -687,7 +687,7 @@ export const useChatStore = create<ChatStore>()(
         ) {
           const msg = messages[i];
           if (!msg || msg.isError) continue;
-          tokenCount += estimateTokenLength(msg.content);
+          tokenCount += estimateTokenLength(getMessageTextContent(msg));
           reversedRecentMessages.push(msg);
         }
 

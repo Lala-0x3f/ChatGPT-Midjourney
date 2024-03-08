@@ -12,7 +12,7 @@ import {
   showToast,
 } from "./ui-lib";
 import { IconButton } from "./button";
-import { copyToClipboard, downloadAs, useMobileScreen } from "../utils";
+import { copyToClipboard, downloadAs, getMessageTextContent, useMobileScreen } from "../utils";
 
 import CopyIcon from "../icons/copy.svg";
 import LoadingIcon from "../icons/three-dots.svg";
@@ -270,7 +270,7 @@ export function RenderExport(props: {
           id={`${m.role}:${i}`}
           className={EXPORT_MESSAGE_CLASS_NAME}
         >
-          <Markdown content={m.content} defaultShow />
+          <Markdown content={getMessageTextContent(m)} defaultShow />
         </div>
       ))}
     </div>
@@ -517,7 +517,7 @@ export function ImagePreviewer(props: {
 
               <div className={styles["body"]}>
                 <Markdown
-                  content={m.content}
+                  content={getMessageTextContent(m)}
                   fontSize={config.fontSize}
                   defaultShow
                 />
@@ -539,8 +539,8 @@ export function MarkdownPreviewer(props: {
     props.messages
       .map((m) => {
         return m.role === "user"
-          ? `## ${Locale.Export.MessageFromYou}:\n${m.content}`
-          : `## ${Locale.Export.MessageFromChatGPT}:\n${m.content.trim()}`;
+          ? `## ${Locale.Export.MessageFromYou}:\n${getMessageTextContent(m)}`
+          : `## ${Locale.Export.MessageFromChatGPT}:\n${getMessageTextContent(m).trim()}`;
       })
       .join("\n\n");
 
