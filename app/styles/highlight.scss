@@ -1,3 +1,13 @@
+@font-face {
+  font-family: "Victor Mono";
+  src: local("@/public/fonts/VictorMono-SemiBoldItalic.ttf");
+}
+
+@font-face {
+  font-family: "Smiley Sans";
+  src: local("@/public/fonts/SmileySans-Oblique.otf");
+}
+
 .markdown-body {
   pre {
     padding: 0;
@@ -5,7 +15,7 @@
 
   pre,
   code {
-    font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+    font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace, sans-serif;
   }
 
   pre code {
@@ -17,6 +27,15 @@
   code {
     padding: 3px 5px;
   }
+
+  .hljs-built_in,
+  .hljs-property,
+  .hljs-string{
+    font-style: italic;
+    font-family: "Victor Mono","Smiley Sans";
+    font-variant-ligatures: common-ligatures;
+  }
+
 
   .hljs,
   pre {
