@@ -51,7 +51,7 @@ const cn = {
     Url: "地址",
     ImageAgent: "图像代理",
     ImageAgentOpenTip:
-      "开启之后，返回的Midjourney图片将会通过本程序自身代理，所以本程序需要处于可以访问cdn.discordapp.com的网络环境中才有效",
+      "如果Midjourney图片无法显示，请开启。⚠️注意，这将会让图片加载速度大幅下降。",
   },
   ChatItem: {
     ChatItemCount: (count: number) => `${count} 条对话`,
