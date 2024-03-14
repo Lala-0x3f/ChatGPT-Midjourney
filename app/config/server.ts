@@ -15,6 +15,7 @@ declare global {
       HIDE_BALANCE_QUERY?: string; // allow user to query balance or not
       googleUrl?:string,
       googleApiKey?:string,
+      STATUS_URL?:string
     }
   }
 }
@@ -53,5 +54,6 @@ export const getServerSideConfig = () => {
     enableGPT4: !process.env.DISABLE_GPT4,
     googleUrl: process.env.GOOGLE_URL,
     googleApiKey: process.env.GOOGLE_API_KEY,
+    StatusUrl: process.env.STATUS_URL
   };
 };

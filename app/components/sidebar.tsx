@@ -29,6 +29,7 @@ import { useMobileScreen } from "../utils";
 import dynamic from "next/dynamic";
 import { showConfirm, showToast } from "./ui-lib";
 import { useRouter } from "next/navigation";
+import { getServerSideConfig } from "../config/server";
 
 const ChatList = dynamic(async () => (await import("./chat-list")).ChatList, {
   loading: () => null,
@@ -108,6 +109,7 @@ export function SideBar(props: { className?: string }) {
   const { onDragMouseDown, shouldNarrow } = useDragSideBar();
   const navigate = useNavigate();
   const config = useAppConfig();
+  const status = getServerSideConfig().StatusUrl
 
   useHotKey();
   const r = useRouter();
@@ -123,6 +125,7 @@ export function SideBar(props: { className?: string }) {
         </div>
         <div className={styles["sidebar-sub-title"]}>
           ChatGPT + Gemini + Midjourney
+          {status ? <>  (<a href={status} target="_blank" style={{textDecoration: "None"}}>status</a>)</> : ("")}
         </div>
         <div className={styles["sidebar-logo"] + " no-dark"}>
           <ChatGptIcon />
