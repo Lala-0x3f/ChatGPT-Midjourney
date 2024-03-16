@@ -40,3 +40,9 @@ async function handle(req: NextRequest, {params}: { params: { path: string[] } }
 
 export const GET = handle;
 export const POST = handle;
+
+export const preferredRegion = [
+    "icn1",
+    "kix1",
+    "sin1",
+  ];
